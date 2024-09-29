@@ -1,9 +1,9 @@
 package com.nuitriapp.equilibro.controller;
 
-import com.nuitriapp.equilibro.model.Fidelite;
+import com.nuitriapp.equilibro.model.ProgrammeFidelite;
 import com.nuitriapp.equilibro.model.Utilisateur;
-import com.nuitriapp.equilibro.repository.FideliteRepository;
-import com.nuitriapp.equilibro.service.FideliteService;
+import com.nuitriapp.equilibro.repository.ProgrammeFideliteRepository;
+import com.nuitriapp.equilibro.service.ProgrammeFideliteService;
 import com.nuitriapp.equilibro.service.UtilisateurService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,16 +18,16 @@ import java.util.Optional;
 public class FideliteController {
 
     @Autowired
-    private FideliteService fideliteService;
+    private ProgrammeFideliteService programmeFideliteService;
 
     @Autowired
     private UtilisateurService utilisateurService;
     @Autowired
-    private FideliteRepository fideliteRepository;
+    private ProgrammeFideliteRepository programmeFideliteRepository;
 
     // Récupérer les points de fidélité pour l'utilisateur authentifié
     @GetMapping("/points")
-    public ResponseEntity<Fidelite> obtenirFidelitePourUtilisateurAuthentifie() {
+    public ResponseEntity<ProgrammeFidelite> obtenirFidelitePourUtilisateurAuthentifie() {
         // Récupérer l'utilisateur authentifié
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String emailUtilisateur = authentication.getName();
@@ -38,14 +38,14 @@ public class FideliteController {
         }
 
         Utilisateur utilisateur = optionalUtilisateur.get();
-        Fidelite fidelite = fideliteService.obtenirFideliteParUtilisateur(utilisateur);
+        ProgrammeFidelite programmeFidelite = programmeFideliteService.obtenirFideliteParUtilisateur(utilisateur);
 
-        return ResponseEntity.ok(fidelite);
+        return ResponseEntity.ok(programmeFidelite);
     }
 
     // Ajouter des points pour l'utilisateur authentifié
     @PostMapping("/ajouter-points/{points}")
-    public ResponseEntity<Fidelite> ajouterPointsPourUtilisateurAuthentifie(@PathVariable int points) {
+    public ResponseEntity<ProgrammeFidelite> ajouterPointsPourUtilisateurAuthentifie(@PathVariable int points) {
         // Récupérer l'utilisateur authentifié
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String emailUtilisateur = authentication.getName();
@@ -56,14 +56,14 @@ public class FideliteController {
         }
 
         Utilisateur utilisateur = optionalUtilisateur.get();
-        Fidelite fidelite = fideliteService.ajouterPoints(utilisateur, points);
+        ProgrammeFidelite programmeFidelite = programmeFideliteService.ajouterPoints(utilisateur, points);
 
-        return ResponseEntity.ok(fidelite);
+        return ResponseEntity.ok(programmeFidelite);
     }
 
     // Modifier les points de fidélité pour l'utilisateur authentifié
     @PutMapping("/modifier-points/{nouveauTotal}")
-    public ResponseEntity<Fidelite> modifierPointsPourUtilisateurAuthentifie(@PathVariable int nouveauTotal) {
+    public ResponseEntity<ProgrammeFidelite> modifierPointsPourUtilisateurAuthentifie(@PathVariable int nouveauTotal) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String emailUtilisateur = authentication.getName();
 
@@ -73,14 +73,14 @@ public class FideliteController {
         }
 
         Utilisateur utilisateur = optionalUtilisateur.get();
-        Fidelite fidelite = fideliteService.modifierPoints(utilisateur, nouveauTotal);
+        ProgrammeFidelite programmeFidelite = programmeFideliteService.modifierPoints(utilisateur, nouveauTotal);
 
-        return ResponseEntity.ok(fidelite);
+        return ResponseEntity.ok(programmeFidelite);
     }
 
     // Supprimer un certain nombre de points (ou réinitialiser à zéro) pour l'utilisateur authentifié
     @DeleteMapping("/supprimer-points/{points}")
-    public ResponseEntity<Fidelite> supprimerPointsPourUtilisateurAuthentifie(@PathVariable int points) {
+    public ResponseEntity<ProgrammeFidelite> supprimerPointsPourUtilisateurAuthentifie(@PathVariable int points) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String emailUtilisateur = authentication.getName();
 
@@ -90,9 +90,9 @@ public class FideliteController {
         }
 
         Utilisateur utilisateur = optionalUtilisateur.get();
-        Fidelite fidelite = fideliteService.supprimerPoints(utilisateur, points);
+        ProgrammeFidelite programmeFidelite = programmeFideliteService.supprimerPoints(utilisateur, points);
 
-        return ResponseEntity.ok(fidelite);
+        return ResponseEntity.ok(programmeFidelite);
     }
 
 

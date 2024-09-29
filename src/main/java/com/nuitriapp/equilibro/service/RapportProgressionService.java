@@ -1,6 +1,6 @@
 package com.nuitriapp.equilibro.service;
 
-import com.nuitriapp.equilibro.model.Rapport;
+import com.nuitriapp.equilibro.model.RapportProgression;
 import com.nuitriapp.equilibro.repository.RapportRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,11 +12,11 @@ public class RapportService {
     @Autowired
     private RapportRepository rapportRepository;
 
-    public Rapport genererRapport(Rapport rapport) {
+    public RapportProgression genererRapport(RapportProgression rapport) {
         return rapportRepository.save(rapport);
     }
 
-    public List<Rapport> obtenirRapportsParUtilisateur(Long utilisateurId) {
+    public List<RapportProgression> obtenirRapportsParUtilisateur(Long utilisateurId) {
         return rapportRepository.findByUtilisateurId(utilisateurId);
     }
 
